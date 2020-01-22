@@ -2,6 +2,7 @@ const express = require("express");
 const userModel = require("./userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const restrict = require("../auth-middleware/restrict");
 const router = express.Router();
 const secrets = require("../auth-config/secrets");
 
@@ -44,6 +45,10 @@ router.post("/login", async (req, res, next) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+router.get("/restricted", restrict(), (req, res, next) => {
+  res.json({ success: "You have accesss!" });
 });
 
 module.exports = router;
