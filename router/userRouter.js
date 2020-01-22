@@ -27,7 +27,7 @@ router.post("/login", async (req, res, next) => {
     const validatePassword = await bcrypt.compare(password, user.password);
     if (user && validatePassword) {
       const token = jwt.sign(
-        { id: user.id, username: user.username },
+        { id: user.id, username: user.username, department: user.department },
         secrets.jwt,
         {
           expiresIn: "2d"
