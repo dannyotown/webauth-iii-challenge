@@ -1,19 +1,14 @@
 const express = require("express");
-const server = express();
+const userRoute = require("./router/userRouter");
 
-const host = process.env.HOST || "0.0.0.0";
-const port = process.env.PORT || 6000;
+const server = express();
+const port = process.env.PORT || 5000;
 
 server.use(express.json());
-
-server.use((req, res, next) => {
+server.get("/", (req, res, next) => {
   console.log("test");
+  next();
 });
+server.use("/users", userRoute);
 
-server.listen(
-  (port,
-  host,
-  () => {
-    console.log(`Server listening on port ${port}`);
-  })
-);
+server.listen(port, () => console.log(`Server listening on port ${port}`));
